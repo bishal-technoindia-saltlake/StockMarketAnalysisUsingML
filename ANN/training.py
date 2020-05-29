@@ -18,6 +18,7 @@ def training():
         filename_variables="C:\\Users\\ASUS\\Desktop\\StockMarket\\MSFT_y_learn.csv")
     X = X.values # convert to numpy.ndarray used by sklearn
     y = y.values # convert to numpy.ndarray used by sklearn
+    print(y)
     tscv = TimeSeriesSplit(n_splits=10)
     train_neural_net(X, y, tscv, False)
  
