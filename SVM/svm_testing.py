@@ -1,8 +1,10 @@
-from sklearn.metrics import mean_squared_error
-import pickle
-import pandas as pd
 import sys
 sys.path.append('..')
+from sklearn.metrics import mean_squared_error
+import numpy as np
+import pickle
+import pandas as pd
+from accuracy_calculator import main as accuracy
 
 
 def testing():
@@ -23,9 +25,12 @@ def test_svm(X_test, y_test):
     file_name = 'svm_model.save'
     model = pickle.load(open(file_name, 'rb'))
     y_pred = model.predict(X_test)
+    length = np.size(y_pred)
     mse_test = mean_squared_error(y_pred, y_test.ravel())
     print("Mean Squared Error Result of Testing SVM")
     print(mse_test)
+    accuracy_score = accuracy(y_pred, y_test.ravel(), length)
+    print('Accuracy Score: ', accuracy_score)
 
 
 if __name__ == "__main__":
