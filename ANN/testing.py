@@ -1,13 +1,14 @@
 import sys
 sys.path.append('..')
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import pickle
-from sklearn.preprocessing import PolynomialFeatures
-from matplotlib import cm
-from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import TimeSeriesSplit
+from sklearn.metrics import mean_squared_error
+from matplotlib import cm
+from sklearn.preprocessing import PolynomialFeatures
+import pickle
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from accuracy_calculator import main as accuracy
 
 
 def testing():
@@ -29,9 +30,12 @@ def test_neural_net(X_test, y_test):
     file_name = 'finalized_model.sav'
     model = pickle.load(open(file_name, 'rb'))
     y_pred = model.predict(X_test)
+    length = np.size(y_pred)
     mse_test = mean_squared_error(y_pred, y_test)
     print("Results obtained after testing")
     print(mse_test)
+    accuracy_score = accuracy(y_pred, y_test.ravel(), length)
+    print('Accuracy Score: ', accuracy_score)
 
 
 if __name__ == "__main__":

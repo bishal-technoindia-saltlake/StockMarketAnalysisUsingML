@@ -8,6 +8,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from accuracy_calculator import main as accuracy
 
 
 def testing():
@@ -34,6 +35,8 @@ def test_neural_net(X_test, y_test):
     mse_test = mean_squared_error(y_pred, y_test)
     print("Results obtained after testing")
     print(mse_test)
+    accuracy_score = accuracy(y_pred, y_test.ravel(), length)
+    print('Accuracy Score: ', accuracy_score)
 
 
 if __name__ == "__main__":
