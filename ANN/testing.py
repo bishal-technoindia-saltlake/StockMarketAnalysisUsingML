@@ -33,10 +33,16 @@ def test_neural_net(X_test, y_test):
     length = np.size(y_pred)
     mse_test = mean_squared_error(y_pred, y_test)
     print("Results obtained after testing")
-    print(mse_test)
+    print('Mean Squared Error: ',mse_test)
     accuracy_score = accuracy(y_pred, y_test.ravel(), length)
     print('Accuracy Score: ', accuracy_score)
-
+    t=np.arange(0,np.size(y_pred),1)
+    plt.plot(t,y_pred,'r',label="Predicted Return")
+    plt.plot(t,y_test.ravel(),'b',label="Actual Return")
+    plt.legend(loc="upper left")
+    plt.xlabel("BaseTime")
+    plt.ylabel("Return")
+    plt.show()
 
 if __name__ == "__main__":
     testing()
