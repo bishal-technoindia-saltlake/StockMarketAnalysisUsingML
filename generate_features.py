@@ -12,6 +12,7 @@ def return_features(df):
     Returns:
         pandas.DataFrame
     """
+    print('generating new features...')
     df["return"] = df["close"] / df["close"].shift(1)
     df["close_to_open"] = df["close"] / df["open"]
     df["close_to_high"] = df["close"] / df["high"]

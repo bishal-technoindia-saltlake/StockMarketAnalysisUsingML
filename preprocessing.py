@@ -57,6 +57,7 @@ def clean_df(df):
     Returns:
         pandas.DataFrame
     """
+    print('data cleaning...')
     df = missing_values(df)
     df = outliers(df)
     return df
@@ -69,13 +70,14 @@ def missing_values(df):
     Returns:
         pandas.DataFrame
     """
+    print('filling up missing values...')
     missing_values_count = df.isnull().sum()
     # print("Original data # missing values: {}".format(missing_values_count))
     if sum(missing_values_count) == 0:
         #print("No missing data values found\n")
         return df
     else:
-        print("Ffill of missing values necessary")
+        print("fill of missing values necessary")
         df = df.fillna(method = "ffill", axis=0).fillna("0")
         missing_values_count = df.isnull().sum()
         # print("After filling na # missing values: {}".format(missing_values_count))
@@ -90,17 +92,19 @@ def outliers(df):
     Returns:
         pandas.DataFrame
     """
+    print('removing outliers...')
     df_outliers = df.loc[:,["date", "return", "close_to_open", "close_to_high", "close_to_low"]]
     column_to_analysts = "return"
     df_smallest = df_outliers.sort_values(by=column_to_analysts, ascending=True)
     df_largest = df_outliers.sort_values(by=column_to_analysts, ascending=False)
-    print("Printing smallest 5 data")
-    print(df_smallest.iloc[:5])
-    print("\nPrinting largest 5 dataset")
-    print(df_largest.iloc[:5])
+    # print("Printing smallest 5 data")
+    # print(df_smallest.iloc[:5])
+    # print("\nPrinting largest 5 dataset")
+    # print(df_largest.iloc[:5])
     return df
 
 def remove_unused_features(df):
+    print('removing unused features...')
     X = df.loc[1:len(df)-1, ["return","close_to_open","close_to_high","close_to_low"]]
     y = df.loc[1:len(df)-1, ["y"]]
     return X, y
@@ -113,6 +117,7 @@ def scaling(df, scaler=None):
     Returns:
         numpy.ndarray
     """
+    print('scaling data...')
     if not scaler:
         scaler_model = sklearn_preprocessing.StandardScaler().fit(df)
         joblib.dump(scaler_model, "scaler_ml.pkl")
@@ -134,7 +139,9 @@ def df_to_csv(df, filename):
     Returns:
         None
     """
+    print('converting dataframe to csv...')
     df.to_csv(filename, index=False)
 
 if __name__ == "__main__":
     preprocessing()
+    print('DATA PREPROCESSING COMPLETED')
