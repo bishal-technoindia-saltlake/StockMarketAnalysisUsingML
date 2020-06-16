@@ -8,7 +8,7 @@ from pca import PCA
 
 def load_data():
     filename = "../MSFT.csv"
-    print('loaing files...')
+    print('loading files...')
     df = yahoo_finance_source_to_df(filename)
     df = generate_features.return_features(df)
     df = generate_features.target_value(df)
